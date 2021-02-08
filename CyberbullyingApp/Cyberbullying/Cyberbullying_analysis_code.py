@@ -67,12 +67,10 @@ class Cyberbullying_analysis_code():
 
 
 
-        test = vectorizer.transform(tweet_in_pandas)
+        test = joblib.transform(tweet_in_pandas)
         predicted_sentiment = model.predict(test)
         final_sentiment = (predicted_sentiment[0])
-        if final_sentiment == 'not-bullying':
+        if final_sentiment == 'Non-Bullying':
             return 'Not Bullying'
-        elif final_sentiment == 'sadness':
-            return 'Sadness'
         elif final_sentiment == 'Bullying':
             return 'Bullying'

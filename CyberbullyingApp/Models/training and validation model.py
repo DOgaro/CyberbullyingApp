@@ -11,6 +11,7 @@ from sklearn.metrics import roc_curve, auc
 from sklearn.metrics import classification_report
 from sklearn.svm import SVC
 from sklearn import metrics
+from sklearn import svm
 #from sklearn.externals import joblib
 
 import pandas as pd
@@ -21,7 +22,7 @@ import string
 import joblib
 
 def readcsv():
-    df=pd.read_csv("dataset.csv",)#read labelled tweets
+    df=pd.read_csv("trial.csv",)#read labelled tweets
     #df2=df.reindex(np.random.permutation(df.index))
     #X=df2.text
     #y=df2.label
@@ -29,12 +30,12 @@ def readcsv():
     y = df.label
     return X, y
 
-def drawrocSVM(y_test,y_pred):
+def drawrocNB(y_test,y_pred):
     fpr,tpr,threshold=roc_curve(y_test,y_pred)
     print("Drawing")
     roc_auc=auc(fpr,tpr)
     plt.title('Receiver Operating Characteristic')
-    plt.plot(fpr,tpr,'b',label='SVM AUC = %0.2f'%roc_auc,color='b')
+    plt.plot(fpr,tpr,'b',label='NB AUC = %0.2f'%roc_auc,color='b')
     plt.legend(loc='lower right')
     plt.plot([0,1],[0,1],'r--')
     plt.xlim([-0.1,1.2])
@@ -68,13 +69,13 @@ def evaluatemodel(y_pred,y_test):
 def main():
     X,y=readcsv()
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3)#split data into training and testing sets
-    svm_clf=createSVM(X_train,y_train)
-    y_pred=svm_clf.predict(X_test)
+    nb_clf=createNB(X_train,y_train)
+    y_pred=nb_clf.predict(X_test)
 
     print("SVM evaluation")
     evaluatemodel(y_pred,y_test)
-    drawrocSVM(y_test,y_pred)
-    savemodel(svm_clf)
+    drawrocNB(y_test,y_pred)
+    savemodel(nb_clf)
 
 if __name__=="__main__":
         main()
