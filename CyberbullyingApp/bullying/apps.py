@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class Bullyingfig(AppConfig):
+class BullyingConfig(AppConfig):
     name = 'bullying'

@@ -5,7 +5,9 @@ import re
 import pickle
 import itertools
 import joblib
-from nltk.stem.wordnet import WordNetLemmatizer 
+from nltk.stem.wordnet import WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from django.conf import settings
 import os
 
@@ -53,24 +55,23 @@ class Cyberbullying_analysis_code():
 
         tweet_in_pandas = pd.Series(' '.join(self.cleaning(tweet)))
 
-        path_vec = os.path.join(settings.MODELS, 'finalmodel.pkl')
-        path_model = os.path.join(settings.MODELS, 'finalized_model.sav')
+        #path_vec = os.path.join(settings.MODELS, 'vectorizer.pickle')
+        path_model = os.path.join(settings.MODELS, 'finalmodel.pkl')
 
         # load vectorizer
         # vec_file = 'vectorizer.pickle'
-        vectorizer = joblib.load(open(path_vec, 'rb'))
-
+        # vectorizer = pickle.load(open(path_vec, 'rb'))
+       
+        # vectorizer = TfidfVectorizer()
         # load trained model
         # filename = 'finalized_model.sav'
         model = joblib.load(open(path_model, 'rb'))
 
 
-
-
-        test = joblib.transform(tweet_in_pandas)
-        predicted_sentiment = model.predict(test)
-        final_sentiment = (predicted_sentiment[0])
-        if final_sentiment == 'Non-Bullying':
+        #test = vectorizer.transform(tweet_in_pandas)
+        predicted_sentiment = model.predict(tweet_in_pandas)
+        final_sentiment = (predicted_sentiment)
+        if final_sentiment == 0 :
             return 'Not Bullying'
-        elif final_sentiment == 'Bullying':
+        elif final_sentiment == 1 :
             return 'Bullying'

@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class EmotionConfig(AppConfig):
+class CyberbullyingConfig(AppConfig):
     name = 'Cyberbullying'

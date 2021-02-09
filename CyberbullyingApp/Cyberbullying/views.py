@@ -32,19 +32,19 @@ def Cyberbullying_analysis_import(request):
 
             if handle[0]=='#':
                 list_of_tweets = tweet_text.get_hashtag(handle)
-                list_of_tweets_and_Cyberbullying = []
+                list_of_tweets_and_Cyberbullyings = []
                 for i in list_of_tweets:
-                    list_of_tweets_and_Cyberbullying.append((i,analyse.predict_Cyberbullying(i)))
-                args = {'list_of_tweets_and_Cyberbullying':list_of_tweets_and_Cyberbullying, 'handle':handle}
+                    list_of_tweets_and_Cyberbullyings.append((i,analyse.predict_Cyberbullying(i)))
+                args = {'list_of_tweets_and_Cyberbullyings':list_of_tweets_and_Cyberbullyings, 'handle':handle}
                 return render(request, 'home/Cyberbullying_import_result_hashtag.html', args)
 
             list_of_tweets = tweet_text.get_tweets(handle)
-            list_of_tweets_and_Cyberbullying = []
+            list_of_tweets_and_Cyberbullyings = []
             if handle[0] != '@':
                 handle = str('@' + handle)
             for i in list_of_tweets:
                 list_of_tweets_and_Cyberbullyings.append((i, analyse.predict_Cyberbullying(i)))
-            args = {'list_of_tweets_and_Cyberbullying': list_of_tweets_and_Cyberbullyings, 'handle': handle}
+            args = {'list_of_tweets_and_Cyberbullyings': list_of_tweets_and_Cyberbullyings, 'handle': handle}
             return render(request, 'home/Cyberbullying_import_result.html', args)
 
     else:
