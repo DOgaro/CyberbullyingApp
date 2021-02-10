@@ -66,7 +66,7 @@ for t in search:
 #"sexuality" example: 
 
 
-search = api.GetSearch("you are a p*#$", count=50)
+search = api.GetSearch("you are a ugly", count=50)
 for t in search:
     tweets = t.text.lower()
     tweets = re.sub(r"http\S+", "", tweets)

@@ -11,7 +11,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from django.conf import settings
 import os
 
-# tweet = 'Layin n bed with a headache  ughhhh...waitin on your call...'
 
 class Cyberbullying_analysis_code():
 
@@ -55,20 +54,10 @@ class Cyberbullying_analysis_code():
 
         tweet_in_pandas = pd.Series(' '.join(self.cleaning(tweet)))
 
-        #path_vec = os.path.join(settings.MODELS, 'vectorizer.pickle')
         path_model = os.path.join(settings.MODELS, 'finalmodel.pkl')
 
-        # load vectorizer
-        # vec_file = 'vectorizer.pickle'
-        # vectorizer = pickle.load(open(path_vec, 'rb'))
-       
-        # vectorizer = TfidfVectorizer()
-        # load trained model
-        # filename = 'finalized_model.sav'
         model = joblib.load(open(path_model, 'rb'))
 
-
-        #test = vectorizer.transform(tweet_in_pandas)
         predicted_sentiment = model.predict(tweet_in_pandas)
         final_sentiment = (predicted_sentiment)
         if final_sentiment == 0 :
